@@ -1,0 +1,43 @@
+CREATE TABLE IF NOT EXISTS patients (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  diabetes_type TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS glucose_readings (
+  id TEXT PRIMARY KEY,
+  patient_id TEXT NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
+  reading_value NUMERIC NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS meals (
+  id TEXT PRIMARY KEY,
+  patient_id TEXT NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
+  meal_type TEXT NOT NULL,
+  food_items JSONB NOT NULL,
+  total_carbs NUMERIC NOT NULL,
+  fiber NUMERIC NOT NULL,
+  net_carbs NUMERIC NOT NULL,
+  insulin_dose NUMERIC,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS nutrition (
+  food_id TEXT PRIMARY KEY,
+  food_name TEXT NOT NULL,
+  carbs NUMERIC NOT NULL,
+  fiber NUMERIC NOT NULL,
+  protein NUMERIC NOT NULL,
+  fat NUMERIC NOT NULL,
+  calories NUMERIC NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS doctor_notes (
+  id TEXT PRIMARY KEY,
+  patient_id TEXT NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
+  note TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);

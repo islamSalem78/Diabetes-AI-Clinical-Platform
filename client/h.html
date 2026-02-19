@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smart Diabetes Nutrition Assistant</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#4f535c;
+}
+
+/* MAIN CONTAINER */
+.container{
+    width:1200px;
+    height:650px;
+    border-radius:20px;
+    overflow:hidden;
+    display:flex;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    box-shadow:0 30px 60px rgba(0,0,0,0.5);
+}
+
+/* LEFT SIDE */
+.left{
+    width:60%;
+    padding:60px;
+    color:#fff;
+    position:relative;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:600;
+    font-size:18px;
+    margin-bottom:40px;
+}
+
+.logo span{
+    width:14px;
+    height:14px;
+    background:#00c6ff;
+    border-radius:50%;
+}
+
+.project-name{
+    font-size:14px;
+    color:#9ecbff;
+    margin-bottom:10px;
+}
+
+.switch{
+    margin-bottom:30px;
+}
+
+.switch button{
+    background:none;
+    border:none;
+    color:#ccc;
+    margin-right:20px;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.switch button.active{
+    color:#00c6ff;
+    font-weight:600;
+}
+
+.title{
+    font-size:30px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    font-size:14px;
+    color:#bbb;
+    margin-bottom:30px;
+}
+
+form{
+    display:none;
+    flex-direction:column;
+    gap:15px;
+}
+
+form.active{
+    display:flex;
+}
+
+.row{
+    display:flex;
+    gap:15px;
+}
+
+input{
+    width:100%;
+    padding:12px 15px;
+    border-radius:10px;
+    border:none;
+    background:#2b3e50;
+    color:#fff;
+    outline:none;
+    font-size:14px;
+    transition:0.3s;
+}
+
+input::placeholder{
+    color:#9fb9d3;
+}
+
+input:focus{
+    border:2px solid #00c6ff;
+    background:#324b61;
+}
+
+.buttons{
+    margin-top:20px;
+}
+
+.btn{
+    padding:12px 25px;
+    border-radius:30px;
+    border:none;
+    cursor:pointer;
+    font-weight:500;
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    color:#fff;
+    transition:0.3s;
+}
+
+.btn:hover{
+    opacity:0.9;
+}
+
+/* RIGHT SIDE */
+.right{
+    width:40%;
+    background:url('im.png') center/cover no-repeat;
+    position:relative;
+}
+
+
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .container{
+        flex-direction:column;
+        height:auto;
+    }
+    .left,.right{
+        width:100%;
+        height:500px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="left">
+
+        <div class="logo">
+            <span></span>
+            Smart Diabetes Nutrition Assistant
+        </div>
+
+        <div class="project-name">
+            AI-powered meal & insulin management system
+        </div>
+
+        <div class="switch">
+            <button id="signupBtn" class="active">Create Account</button>
+            <button id="loginBtn">Login</button>
+        </div>
+
+        <div class="title" id="formTitle">Create new account</div>
+        <div class="subtitle">Start managing your nutrition smartly</div>
+
+        <!-- SIGN UP -->
+        <form id="signupForm" class="active">
+            <div class="row">
+                <input type="text" placeholder="First name">
+                <input type="text" placeholder="Last name">
+            </div>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <div class="buttons">
+                <button class="btn">Create Account</button>
+            </div>
+        </form>
+
+        <!-- LOGIN -->
+        <form id="loginForm">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <div class="buttons">
+                <button class="btn">Login</button>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="right"></div>
+
+</div>
+
+<script>
+const signupBtn = document.getElementById("signupBtn");
+const loginBtn = document.getElementById("loginBtn");
+const signupForm = document.getElementById("signupForm");
+const loginForm = document.getElementById("loginForm");
+const title = document.getElementById("formTitle");
+
+signupBtn.onclick = () => {
+    signupForm.classList.add("active");
+    loginForm.classList.remove("active");
+    signupBtn.classList.add("active");
+    loginBtn.classList.remove("active");
+    title.innerText = "Create new account";
+}
+
+loginBtn.onclick = () => {
+    loginForm.classList.add("active");
+    signupForm.classList.remove("active");
+    loginBtn.classList.add("active");
+    signupBtn.classList.remove("active");
+    title.innerText = "Welcome back";
+}
+</script>
+
+</body>
+</html>

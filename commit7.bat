@@ -1,0 +1,1 @@
+git commit -m "Restore original UI design and colors"

@@ -1,0 +1,1 @@
+git commit -m "Fix styling issues by installing and configuring Tailwind CSS"
