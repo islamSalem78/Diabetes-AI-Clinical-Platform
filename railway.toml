@@ -1,0 +1,20 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm install"
+
+[deploy]
+startCommand = "npm start"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+[[services]]
+name = "diabetes-ai-backend"
+source = {
+  type = "github",
+  repo = "islamSalem78/Diabetes-AI-Clinical-Platform",
+  branch = "main",
+  root = "./server"
+}
+
+[services.env]
+NODE_ENV = "production"
