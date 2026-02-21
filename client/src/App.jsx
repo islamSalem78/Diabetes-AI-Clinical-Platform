@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 
+const API_BASE = import.meta.env.VITE_API_BASE || "";
 const apiRequest = async (path, options = {}) => {
-  const response = await fetch(`/api${path}`, {
+  const base = API_BASE.endsWith("/") ? API_BASE.slice(0, -1) : API_BASE;
+  const response = await fetch(`${base}/api${path}`, {
     headers: { "Content-Type": "application/json" },
     ...options,
   });

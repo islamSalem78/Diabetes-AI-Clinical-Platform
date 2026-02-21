@@ -54,9 +54,18 @@ app.use(
     crossOriginResourcePolicy: { policy: "cross-origin" },
   })
 );
+const allowedOrigins = (process.env.CORS_ORIGINS || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
 app.use(
   cors({
-    origin: [/^http:\/\/localhost:\d+$/],
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (/^http:\/\/localhost:\d+$/.test(origin)) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(null, false);
+    },
     methods: ["GET", "POST"],
     credentials: false,
   })

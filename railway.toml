@@ -16,3 +16,4 @@ source = {
 
 [services.env]
 NODE_ENV = "production"
+CORS_ORIGINS = "https://islamSalem78.github.io"
