@@ -1,9 +1,7 @@
 [build]
-builder = "nixpacks"
-buildCommand = "npm install"
+builder = "dockerfile"
 
 [deploy]
-startCommand = "npm start"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
 
@@ -13,7 +11,7 @@ source = {
   type = "github",
   repo = "islamSalem78/Diabetes-AI-Clinical-Platform",
   branch = "main",
-  root = "./server"
+  root = "."
 }
 
 [services.env]
