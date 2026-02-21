@@ -285,6 +285,11 @@ app.get("/api/doctor/patients/:id", (req, res) => {
   return res.json(overview);
 });
 
+// Health/info endpoint for root
+app.get("/", (_req, res) => {
+  res.type("text/plain").send("Diabetes AI Backend is running");
+});
+
 app.post("/api/doctor/patients/:id/notes", async (req, res) => {
   const parsed = noteSchema.safeParse(req.body ?? {});
   if (!parsed.success) return res.status(400).json({ error: "Note required." });
