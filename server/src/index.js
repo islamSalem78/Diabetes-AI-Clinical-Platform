@@ -48,6 +48,9 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
+// Behind Railway's reverse proxy; trust first proxy to read client IP correctly
+app.set("trust proxy", 1);
+
 app.disable("x-powered-by");
 app.use(
   helmet({
