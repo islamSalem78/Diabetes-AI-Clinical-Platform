@@ -115,17 +115,20 @@ export default function App() {
   const handleRegister = async () => {
     setPatientError("");
     setAuthHint("");
-    if (!authForm.email || !authForm.password) {
-      setPatientError("Email and password are required.");
+    // Only email is required for this demo; passwords are optional client-side
+    if (!authForm.email) {
+      setPatientError("Email is required.");
       return;
     }
-    if (authForm.password.length < 6) {
-      setPatientError("Password must be at least 6 characters.");
-      return;
-    }
-    if (authForm.password !== authForm.confirmPassword) {
-      setPatientError("Passwords do not match.");
-      return;
+    if (authForm.password || authForm.confirmPassword) {
+      if (authForm.password.length < 6) {
+        setPatientError("Password must be at least 6 characters.");
+        return;
+      }
+      if (authForm.password !== authForm.confirmPassword) {
+        setPatientError("Passwords do not match.");
+        return;
+      }
     }
     try {
       const role = getRoleFromEmail(authForm.email);

@@ -145,10 +145,21 @@ app.post("/api/patient/register", async (req, res) => {
     return res.status(400).json({ error: "Missing or invalid fields." });
   }
   const { name, email, diabetesType } = parsed.data;
+  // Prefer database source of truth to avoid duplicate IDs for the same email
+  try {
+    const dbPatient = await fetchPatientByEmail(email);
+    if (dbPatient) {
+      const stored = addPatientRecord(dbPatient);
+      return res.json({ patient: stored });
+    }
+  } catch {
+    // Continue with in-memory flow if DB is unavailable
+  }
   const existing = findPatientByEmail(email);
   if (existing) return res.json({ patient: existing });
   const patient = addPatient({ name, email, diabetesType });
-  await insertPatient(patient);
+  // Persist best-effort; ignore unique conflict safely
+  await insertPatient(patient).catch(() => { });
   return res.json({ patient });
 });
 
