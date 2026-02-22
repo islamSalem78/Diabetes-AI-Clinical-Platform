@@ -31,8 +31,14 @@ const aggregateMetrics = (readings, meals) => {
   const hypoCount = values.filter((v) => v < 70).length;
   const hyperCount = values.filter((v) => v > 180).length;
   const tir = calculateTIR(values);
-  const carbs = meals.reduce((sum, meal) => sum + meal.totalCarbs, 0);
-  const fiber = meals.reduce((sum, meal) => sum + meal.fiber, 0);
+  // Use net carbs for daily load so it matches UI label "Daily Net Carbs"
+  const carbs = meals.reduce((sum, meal) => {
+    const net = typeof meal.netCarbs === "number"
+      ? meal.netCarbs
+      : Math.max((meal.totalCarbs || 0) - (meal.fiber || 0), 0);
+    return sum + net;
+  }, 0);
+  const fiber = meals.reduce((sum, meal) => sum + (meal.fiber || 0), 0);
   return {
     averageGlucose: Number(avg.toFixed(1)),
     hba1c: Number(hba1cFromAverage(avg).toFixed(2)),

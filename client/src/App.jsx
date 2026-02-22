@@ -217,6 +217,9 @@ export default function App() {
         }),
       });
       setNutritionResult(data);
+      // Refresh overview so dashboard metrics reflect new meal data
+      const updated = await apiRequest(`/patient/${patient.id}/overview`);
+      setOverview(updated);
     } catch (error) {
       setPatientError(error.message);
     }
