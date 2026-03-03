@@ -1,0 +1,23 @@
+{
+  "name": "Diabetes Clinical Intelligence Platform",
+  "short_name": "Diabetes AI",
+  "start_url": "/Diabetes-AI-Clinical-Platform/",
+  "scope": "/Diabetes-AI-Clinical-Platform/",
+  "display": "standalone",
+  "background_color": "#0b0f19",
+  "theme_color": "#0b0f19",
+  "icons": [
+    {
+      "src": "/Diabetes-AI-Clinical-Platform/im.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/Diabetes-AI-Clinical-Platform/im.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

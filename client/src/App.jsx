@@ -1,13 +1,22 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { localRegister, localLogin, localReadings, localMeals, localAnalyze, localOverview } from "./localStore";
 import Chart from "chart.js/auto";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "";
+const USE_LOCAL = import.meta.env.VITE_LOCAL_MODE === "true";
 const apiRequest = async (path, options = {}) => {
+  if (USE_LOCAL) {
+    const body = typeof options.body === "string" ? JSON.parse(options.body) : options.body || {};
+    if (path === "/patient/register") return localRegister(body);
+    if (path === "/patient/login") return localLogin(body);
+    if (path === "/patient/readings") return localReadings(body);
+    if (path === "/patient/meals") return localMeals(body);
+    if (path === "/nutrition/analyze") return localAnalyze(body);
+    if (path.startsWith("/patient/") && path.endsWith("/overview")) return localOverview(path.split("/")[2]);
+    throw new Error("Unsupported local path");
+  }
   const base = API_BASE.endsWith("/") ? API_BASE.slice(0, -1) : API_BASE;
-  const response = await fetch(`${base}/api${path}`, {
-    headers: { "Content-Type": "application/json" },
-    ...options,
-  });
+  const response = await fetch(`${base}/api${path}`, { headers: { "Content-Type": "application/json" }, ...options });
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
     throw new Error(error.error || "Request failed");
