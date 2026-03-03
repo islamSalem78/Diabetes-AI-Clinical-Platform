@@ -42,6 +42,13 @@ jobs:
             platform-tools
             platforms;android-34
             build-tools;34.0.0
+      - name: Accept SDK licenses
+        run: yes | sdkmanager --licenses
+      - name: Prepare Gradle wrapper and SDK path
+        working-directory: ./client/android
+        run: |
+          chmod +x ./gradlew
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
       - name: Build debug APK
         working-directory: ./client/android
