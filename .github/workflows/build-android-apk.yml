@@ -19,7 +19,7 @@ jobs:
 
       - name: Install client dependencies
         working-directory: ./client
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Build web assets (local mode)
         working-directory: ./client
